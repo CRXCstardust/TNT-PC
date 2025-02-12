@@ -20,11 +20,6 @@
         img, iframe {
             pointer-events: none;
         }
-
-        /* Hide elements from screen readers */
-        *:not(html):not(body):not(head):not(meta):not(title):not(link):not[aria-hidden="true"] {
-            visibility: hidden !important;
-        }
     </style>
 
     <script>
@@ -42,23 +37,13 @@
             }
         });
 
-        // Detect DevTools Opened
-        (function() {
-            const element = new Image();
-            Object.defineProperty(element, "id", {
-                get: function() {
-                    alert("DevTools Detected! Please close it.");
-                    window.location.reload();
-                }
-            });
-            console.log("%c", element);
-        })();
-
-        // Prevent Console Access
+        // Detect DevTools Opening (Does Not Hide Content)
         setInterval(function() {
-            if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+            let widthDiff = window.outerWidth - window.innerWidth;
+            let heightDiff = window.outerHeight - window.innerHeight;
+            if (widthDiff > 200 || heightDiff > 200) {
                 alert("DevTools is open! Please close it.");
-                window.close();
+                window.location.reload();
             }
         }, 1000);
     </script>
